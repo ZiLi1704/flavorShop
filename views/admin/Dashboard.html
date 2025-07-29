@@ -1,0 +1,554 @@
+<div class="header">
+  <h2>Dashboard</h2>
+</div>
+<div class="body">
+  <div class="container">
+    <div class="row" style="margin-bottom: 20px">
+      <div class="col" style="text-align: center">
+        <div class="card">
+          <div class="card-body">
+            <h3 style="text-align: left">Daily:</h3>
+            <h2 style="text-align: right">1000$</h2>
+            <h4 style="text-align: left">Growth: 1%</h4>
+          </div>
+        </div>
+      </div>
+      <div class="col" style="text-align: center">
+        <div class="card">
+          <div class="card-body">
+            <h3 style="text-align: left">Month:</h3>
+            <h2 style="text-align: right">1000$</h2>
+            <h4 style="text-align: left">Growth: 50%</h4>
+          </div>
+        </div>
+      </div>
+      <div class="col" style="text-align: center">
+        <div class="card">
+          <div class="card-body">
+            <h3 style="text-align: left">Year:</h3>
+            <h2 style="text-align: right">1000$</h2>
+            <h4 style="text-align: left">Growth: 100%</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 20px">
+      <div class="col" style="text-align: center">
+        <a href="" ng-click="changeSwitch('Banner')">
+          <input type="button" class="btn-Usertb" value="Banner"/>
+        </a>
+      </div>
+      <div class="col" style="text-align: center">
+        <a href="" ng-click="changeSwitch('Unit')">
+          <input type="button" class="btn-Usertb" value="Unitr"/>
+        </a>
+      </div>
+      <div class="col" style="text-align: center">
+        <a href="" ng-click="changeSwitch('Payment')">
+          <input type="button" class="btn-Usertb" value="payment"/>
+        </a>
+      </div>
+      <div class="col" style="text-align: center">
+        <a href="" ng-click="changeSwitch('Cate')">
+          <input type="button" class="btn-Usertb" value="Category"/>
+        </a>
+      </div>
+      <div class="col" style="text-align: center">
+        <a href="" ng-click="changeSwitch('Dis')">
+          <input type="button" class="btn-Usertb" value="Discount"/>
+        </a>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 20px">
+      <div class="input-group">
+        <input type="search" class="form-control rounded" ng-model="searchText" placeholder="Search..."
+          aria-label="Search" aria-describedby="search-addon" />
+      </div>
+    </div>
+    <div class="datatb Dashtb" ng-switch="currentSwitch" ng-init="currentSwitch='Cate'">
+      <table ng-switch-when="Banner">
+        <tr>
+          <td style="width: 50px">STT</td>
+          <td>Image (4 banners only)</td>
+          <td style="width: 100px">
+          </td>
+        </tr>
+        <tr ng-repeat="banner in banners | filter: searchText" style="cursor: pointer">
+          <td>{{$index + 1}}</td>
+          <td>
+            <img src="./assets/images/banner/{{banner.banner_name}}" alt="" width="430px" />
+          </td>
+          <td>
+            <a href="" data-bs-toggle="modal" data-bs-target="#EditBan" ng-click="GetBanByIndex($index)">
+              <input type="button" value="Edit" class="btn-Usertb" />
+            </a>
+          </td>
+        </tr>
+      </table>
+      <table ng-switch-when="Unit">
+        <tr>
+          <td style="width: 50px">STT</td>
+          <td>Unit</td>
+          <td style="width: 100px">
+            <a href="" data-bs-toggle="modal" data-bs-target="#AddUnit" ng-click="clear()">
+              <input type="button" value="Add" class="btn-Usertb" >
+            </a>
+          </td>
+        </tr>
+        <tr ng-repeat="unit in units | filter: searchText" style="cursor: pointer">
+          <td>{{$index + 1}}</td>
+          <td>{{unit.unit_name}}</td>
+          <td>
+            <a href="" data-bs-toggle="modal" data-bs-target="#EditUnit" ng-click="GetUnitByIndex($index)">
+              <input type="button" value="Edit" class="btn-Usertb" />
+            </a>
+            <a href="" data-bs-toggle="modal" data-bs-target="#DelUnit" ng-click="GetUnitByIndex($index)">
+              <input type="button" value="Delete" class="btn-Usertb" />
+            </a>
+          </td>
+        </tr>
+      </table>
+      <table ng-switch-when="Payment">
+        <tr>
+          <td style="width: 50px">STT</td>
+          <td>Payment</td>
+          <td style="width: 100px">
+            <a href="" data-bs-toggle="modal" data-bs-target="#AddPay" ng-click="clear()">
+              <input type="button" value="Add" class="btn-Usertb" >
+            </a>
+          </td>
+        </tr>
+        <tr ng-repeat="payment in payments | filter: searchText" style="cursor: pointer">
+          <td>{{$index + 1}}</td>
+          <td>{{payment.payment_name}}</td>
+          <td>
+            <a href="" data-bs-toggle="modal" data-bs-target="#EditPay" ng-click="GetPayByIndex($index)">
+              <input type="button" value="Edit" class="btn-Usertb" />
+            </a>
+            <a href="" data-bs-toggle="modal" data-bs-target="#DelPay" ng-click="GetPayByIndex($index)">
+              <input type="button" value="Delete" class="btn-Usertb" />
+            </a>
+          </td>
+        </tr>
+      </table>
+      <table ng-switch-when="Cate">
+        <tr>
+          <td style="width: 50px">STT</td>
+          <td>Category</td>
+          <td style="width: 100px">
+            <a href="" data-bs-toggle="modal" data-bs-target="#AddCat" ng-click="clear()">
+              <input type="button" value="Add" class="btn-Usertb">
+            </a>
+          </td>
+        </tr>
+        <tr ng-repeat="cate in cates | filter: searchText" style="cursor: pointer">
+          <td>{{$index + 1}}</td>
+          <td>{{cate.category_name}}</td>
+          <td>
+            <a href="" data-bs-toggle="modal" data-bs-target="#EditCat" ng-click="GetCateByIndex($index)">
+              <input type="button" value="Edit" class="btn-Usertb" />
+            </a>
+            <a href="" data-bs-toggle="modal" data-bs-target="#DelCat" ng-click="GetCateByIndex($index)">
+              <input type="button" value="Delete" class="btn-Usertb" />
+            </a>
+          </td>
+        </tr>
+      </table>
+      <table ng-switch-when="Dis">
+        <tr>
+          <td style="width: 50px">STT</td>
+          <td>Discount</td>
+          <td>Percent</td>
+          <td style="width: 100px">
+            <a href="" data-bs-toggle="modal" data-bs-target="#AddDis" ng-click="clear()">
+              <input type="button" value="Add" class="btn-Usertb" >
+            </a>
+          </td>
+        </tr>
+        <tr ng-repeat="Dis in Discounts | filter: searchText" style="cursor: pointer">
+          <td>{{$index + 1}}</td>
+          <td>{{Dis.name}}</td>
+          <td>{{Dis.discount_percent}}</td>
+          <td>
+            <a href="" data-bs-toggle="modal" data-bs-target="#DelDis" ng-click="GetDisByIndex($index)">
+              <input type="button" value="Delete" class="btn-Usertb" />
+            </a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- modal for cate -->
+  <div id="AddCat" class="modal fade" tabindex="-1" aria-labelledby="AddCat" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Category</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            ng-click="clear()"></button>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="btnAddCat()">
+            <div class="mb-3" style="background-color: #68ac82; height: 50px; padding-top: 10px">
+              <h4 style="text-align: left; padding-left: 30px" ng-show="notetext">
+                Complete forms and add Category
+              </h4>
+              <h4 style="text-align: left; padding-left: 30px" ng-show="noteres">
+                {{note}}
+              </h4>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">New Category:</label>
+              <input type="text" class="form-control" ng-model="Cat.name" />
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="EditCat" class="modal fade" tabindex="-1" aria-labelledby="EditCat" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Category</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            ng-click="clear()"></button>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="btnEditCat()">
+            <div class="mb-3" style="background-color: #68ac82; height: 50px; padding-top: 10px">
+              <h4 style="text-align: left; padding-left: 30px" ng-show="notetext">
+                Complete forms and Update Category
+              </h4>
+              <h4 style="text-align: left; padding-left: 30px" ng-show="noteres">
+                {{note}}
+              </h4>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Rename Category:</label>
+              <input type="text" class="form-control" ng-model="Cat.name" />
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="DelCat" class="modal fade" tabindex="-1" aria-labelledby="DelCat" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Delete Category</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            ng-click="clear()"></button>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="btnDelCat()">
+            <div class="mb-3" style="background-color: #68ac82; height: 50px; padding-top: 10px">
+              <h4 style="text-align: left; padding-left: 30px" ng-show="notetext">
+                You definitely want to delete this category ?
+              </h4>
+              <h4 style="text-align: left; padding-left: 30px" ng-show="noteres">
+                {{note}}
+              </h4>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Check Category:</label>
+              <input type="text" class="form-control" ng-model="Cat.name" />
+            </div>
+            <button type="submit" class="btn btn-primary">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end modal for cate -->
+
+  <!-- modal for Unit -->
+  <div id="AddUnit" class="modal fade" tabindex="-1" aria-labelledby="AddUnit" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Unit</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            ng-click="clear()"></button>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="btnAddUnit()">
+            <div class="mb-3" style="background-color: #68ac82; height: 50px; padding-top: 10px">
+              <h4 style="text-align: left; padding-left: 30px" ng-show="notetext">
+                Complete forms and add new Unit
+              </h4>
+              <h4 style="text-align: left; padding-left: 30px" ng-show="noteres">
+                {{note}}
+              </h4>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">New Unit:</label>
+              <input type="text" class="form-control" ng-model="Unit.name" />
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="EditUnit" class="modal fade" tabindex="-1" aria-labelledby="EditUnit" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Unit</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            ng-click="clear()"></button>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="btnEditUnit()">
+            <div class="mb-3" style="background-color: #68ac82; height: 50px; padding-top: 10px">
+              <h4 style="text-align: left; padding-left: 30px" ng-show="notetext">
+                Complete forms and Update Unit
+              </h4>
+              <h4 style="text-align: left; padding-left: 30px" ng-show="noteres">
+                {{note}}
+              </h4>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Rename Unit:</label>
+              <input type="text" class="form-control" ng-model="Unit.name" />
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="DelUnit" class="modal fade" tabindex="-1" aria-labelledby="DelUnit" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Delete Category</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            ng-click="clear()"></button>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="btnDelUnit()">
+            <div class="mb-3" style="background-color: #68ac82; height: 50px; padding-top: 10px">
+              <h4 style="text-align: left; padding-left: 30px" ng-show="notetext">
+                You definitely want to delete this Unit ?
+              </h4>
+              <h4 style="text-align: left; padding-left: 30px" ng-show="noteres">
+                {{note}}
+              </h4>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Check Unit:</label>
+              <input type="text" class="form-control" ng-model="Unit.name" />
+            </div>
+            <button type="submit" class="btn btn-primary">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end modal for Unit -->
+
+  <!-- modal for Payment -->
+  <div id="AddPay" class="modal fade" tabindex="-1" aria-labelledby="AddPay" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add payment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            ng-click="clear()"></button>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="btnAddPay()">
+            <div class="mb-3" style="background-color: #68ac82; height: 50px; padding-top: 10px">
+              <h4 style="text-align: left; padding-left: 30px" ng-show="notetext">
+                Complete forms and add new Payment
+              </h4>
+              <h4 style="text-align: left; padding-left: 30px" ng-show="noteres">
+                {{note}}
+              </h4>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">New Payment:</label>
+              <input type="text" class="form-control" ng-model="Pay.name" />
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="EditPay" class="modal fade" tabindex="-1" aria-labelledby="EditPay" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Payment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            ng-click="clear()"></button>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="btnEditPay()">
+            <div class="mb-3" style="background-color: #68ac82; height: 50px; padding-top: 10px">
+              <h4 style="text-align: left; padding-left: 30px" ng-show="notetext">
+                Complete forms and Update Payment
+              </h4>
+              <h4 style="text-align: left; padding-left: 30px" ng-show="noteres">
+                {{note}}
+              </h4>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Rename Payment:</label>
+              <input type="text" class="form-control" ng-model="Pay.name" />
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="DelPay" class="modal fade" tabindex="-1" aria-labelledby="DelPay" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Delete Payment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            ng-click="clear()"></button>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="btnDelPay()">
+            <div class="mb-3" style="background-color: #68ac82; height: 50px; padding-top: 10px">
+              <h4 style="text-align: left; padding-left: 30px" ng-show="notetext">
+                You definitely want to delete this Payment ?
+              </h4>
+              <h4 style="text-align: left; padding-left: 30px" ng-show="noteres">
+                {{note}}
+              </h4>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Check Unit:</label>
+              <input type="text" class="form-control" ng-model="Pay.name" />
+            </div>
+            <button type="submit" class="btn btn-primary">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end modal for Payment -->
+
+  <!-- modal for Discount -->
+  <div id="AddDis" class="modal fade" tabindex="-1" aria-labelledby="AddDis" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Discount</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            ng-click="clear()"></button>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="btnAddDis()">
+            <div class="mb-3" style="background-color: #68ac82; height: 50px; padding-top: 10px">
+              <h4 style="text-align: left; padding-left: 30px" ng-show="notetext">
+                Complete forms and add new Discount
+              </h4>
+              <h4 style="text-align: left; padding-left: 30px" ng-show="noteres">
+                {{note}}
+              </h4>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">New Payment:</label>
+              <input type="text" class="form-control" ng-model="Dis.name" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Percent:</label>
+              <input type="number" class="form-control" ng-model="Dis.per" />
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="DelDis" class="modal fade" tabindex="-1" aria-labelledby="DelDis" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class
+        ="modal-header">
+          <h5 class="modal-title">Delete Discount</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            ng-click="clear()"></button>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="btnDelDis()">
+            <div class="mb-3" style="background-color: #68ac82; height: 50px; padding-top: 10px">
+              <h4 style="text-align: left; padding-left: 30px" ng-show="notetext">
+                You definitely want to delete this Discount ?
+              </h4>
+              <h4 style="text-align: left; padding-left: 30px" ng-show="noteres">
+                {{note}}
+              </h4>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Check Discount:</label>
+              <input type="text" class="form-control" ng-model="txtDisname" />
+            </div>
+            <!-- <div class="mb-3">
+              <label class="form-label">Check Discount:</label>
+              <input type="text" class="form-control" ng-model="Dis.per" />
+            </div> -->
+            <button type="submit" class="btn btn-primary">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end modal for Discount -->
+
+  <!-- modal for banner-->
+  <div id="EditBan" class="modal fade" tabindex="-1" aria-labelledby="EditBan" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Banner </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="btnEditBan()">
+            <div class="mb-3" style="background-color: #68ac82; height: 50px; padding-top: 10px">
+              <h4 style="text-align: left; padding-left: 30px" ng-show="notetext">
+                Complete forms and Update Banner
+              </h4>
+              <h4 style="text-align: left; padding-left: 30px" ng-show="noteres">
+                {{note}}
+              </h4>
+            </div>
+            <div class="mb-3">
+              <div class="photos-upload-view">
+                <div class="row container-fluid">
+                  <div class="col">
+                    <input type="file" ng-model="image1" accept="image/*"
+                      onchange="angular.element(this).scope().uploadedFile(this)" ng-required="true"
+                      class="btn btn-success"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="row container-fluid">
+                <div class="col"><img id="output" style="width:200px; height:150px" class="img-responsive" /></div>
+              </div>                
+            </div>
+            <div class="mb-3">
+              <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end modal for banner-->
+</div>

@@ -1,0 +1,245 @@
+<div class="header">
+  <h2>List User</h2>
+</div>
+<div class="body">
+  
+  <div class="container">
+    <div class="row" style="margin-bottom: 20px">
+        <div class="col-10">
+            <div class="input-group">
+                <input type="search" class="form-control rounded" ng-model="searchText" placeholder="Search..." aria-label="Search" aria-describedby="search-addon" />
+            </div>
+        </div>
+        <div class="col-2" style="text-align: right;">
+          <a href="" data-bs-toggle="modal" data-bs-target="#addUser" ng-click="clear()">
+            <input type="button" class="btn-Usertb" value="Add User"></input>
+          </a>
+        </div>
+    </div>
+    <div class="datatb Usertb">
+      <table >
+        <tr>
+          <td style="width: 50px;">STT</td>
+          <td>Role</td>
+          <td>Full Name</td>
+          <td>Email</td> 
+          <td hidden>Password</td>       
+          <td>Phone</td>
+          <td>Address</td>
+          <td style="width: 100px;">Action</td>
+        </tr>
+        <tr ng-repeat="User in UserList | filter: searchText" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#UserByID" ng-click="getUserByIndex($index)">
+            <td>{{$index + 1}}</td>
+            <td>{{User.role_name}}</td>
+            <td>{{User.user_Fname}}</td>
+            <td>{{User.user_email}}</td>
+            <td hidden>{{User.user_password}}</td>
+            <td>{{User.user_phone}}</td>
+            <td>{{User.user_address}}</td>           
+            <td>
+              <a href="" data-bs-toggle="modal" data-bs-target="#FixUser" ng-click="getUserByIndex($index)">
+                <input type="button" value="Edit" class="btn-Usertb">
+              </a> 
+              <a href="" data-bs-toggle="modal" data-bs-target="#DelByID" ng-click="getUserByIndex($index)">
+                <input type="button" value="Delete" class="btn-Usertb">
+              </a>
+            </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- all modal form for user start-->
+  <div class="modal fade" id="UserByID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalLabel">Thông tin người dùng</h5>
+          <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              ng-click="clear()"
+            ></button>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="tbUser">
+            <tr>
+              <td colspan="2" style="text-align: left; padding-left: 30px;">Information</td>
+            </tr>
+            <tr>
+              <td>role:</td> <td>{{role_name}}</td>
+            </tr>
+            <tr>
+              <td>Full Name:</td> <td>{{user_Fname}}</td>
+            </tr>
+            <tr>
+              <td>Email:</td> <td>{{user_email}}</td>
+            </tr>
+            <tr>
+              <td>Password:</td> <td>{{user_password}}</td>
+            </tr>
+            <tr>
+              <td>Phone:</td> <td>{{user_phone}}</td>
+            </tr>
+            <tr>
+              <td>Address:</td> <td>{{user_address}}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Đóng
+            </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addUserModalLabel">Add User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ng-click="clear()"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Add User form -->
+          <form ng-submit="AddUser()">
+            <div class="mb-3" style="background-color: #68ac82; height: 50px; padding-top: 10px;">
+              <h4 style="text-align: left; padding-left: 30px;" ng-show="notetext">Complete forms and add users</h4>
+              <h4 style="text-align: left; padding-left: 30px;" ng-show="noteres">{{note}}</h4>
+            </div>
+            <div class="mb-3">
+              <label for="role_name" class="form-label">Chức vụ</label>
+              <select ng-model="User.Role" class="form-control">
+                <option value="">Select a role</option>
+                <option ng-repeat="role in RoleList" value="{{role.ID}}">{{role.role_name}}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-control" ng-model="User.Fname">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" ng-model="User.Email">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-control" ng-model="User.Password">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Phone</label>
+              <input type="text" class="form-control" ng-model="User.Phone">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Address</label>
+              <textarea class="form-control" ng-model="User.Address"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Add User</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="FixUser" tabindex="-1" aria-labelledby="FixUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="FixUserModalLabel">Edit User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ng-click="clear()"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Add User form -->
+          <form ng-submit="FixUser()">
+            <div class="mb-3" style="background-color: #68ac82; height: 50px; padding-top: 10px;">
+              <h4 style="text-align: left; padding-left: 30px;" ng-show="notetext">Complete forms and Update users</h4>
+              <h4 style="text-align: left; padding-left: 30px;" ng-show="noteres">{{note}}</h4>
+            </div>
+            <div class="mb-3">
+              <label for="role_name" class="form-label">Chức vụ</label>
+              <select ng-model="User.Role" class="form-control">
+                <option value="">Select a role</option>
+                <option ng-repeat="role in RoleList" value="{{role.ID}}">{{role.role_name}}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="firstName" class="form-label">Full Name</label>
+              <input type="text" class="form-control" ng-model="User.Fname">
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" ng-model="User.Email">
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" ng-model="User.Password">
+            </div>
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone</label>
+              <input type="text" class="form-control" ng-model="User.Phone">
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">Address</label>
+              <textarea class="form-control" ng-model="User.Address"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">update User</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="DelByID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalLabel">Delete User</h5>
+          <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              ng-click="clear()"
+            ></button>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="tbUser">
+            <tr>
+              <td colspan="2" style="text-align: left; padding-left: 30px;" ng-show="notetext">You definitely want to delete this user ?</td>
+              <td colspan="2" style="text-align: left; padding-left: 30px;" ng-show="noteres">{{note}}</td>
+            </tr>
+            <tr>
+              <td>role:</td> <td>{{role_name}}</td>
+            </tr>
+            <tr>
+              <td>Full Name:</td> <td>{{user_Fname}}</td>
+            </tr>
+            <tr>
+              <td>Email:</td> <td>{{user_email}}</td>
+            </tr>
+            <tr>
+              <td>Password:</td> <td>{{user_password}}</td>
+            </tr>
+            <tr>
+              <td>Phone:</td> <td>{{user_phone}}</td>
+            </tr>
+            <tr>
+              <td>Address:</td> <td>{{user_address}}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" ng-click="DelUser()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- all modal form for user end -->
+</div>

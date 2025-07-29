@@ -1,0 +1,22 @@
+<div class="checkout-container" ng-show="form_checkout">
+    <form ng-submit="Order()">
+        <div>
+            <h3>ORDER FORM</h3>
+           <div class="mb-3">
+                <label for="address">Address:</label>
+                <textarea name="" ng-model="Address" cols="30" rows="5" style="width: 100%;" class="form-control"></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Payment</label>
+                <select ng-model="Pay" ng-options="pay.ID as pay.payment_name for pay in payments" class="form-control" required>
+                </select>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Submit" style="width: 100%;" class="btn btn-info"> 
+            </div>
+        </div> 
+    </form>
+</div>
+<div>
+
+</div>

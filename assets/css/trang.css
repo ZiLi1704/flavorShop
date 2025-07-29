@@ -1,0 +1,53 @@
+.Usertb{
+    height: 73vh;
+}
+
+.Dashtb{
+    height: 40vh;
+}
+
+.btn-Usertb{
+    background-color: #D4F2F2;
+    border:2px solid #88CCDD;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.btn-Usertb:hover{
+    background-color: #88CCDD;
+    transition: ease-in-out 0.5s;
+    font-weight: 700;
+}
+
+.AdminPage table tr:hover td{
+    background-color: #68ac82;
+}
+
+table.tbUser tr td:first-child{
+    text-align: right;
+    width: 150px;
+}
+table.tbUser tr td{
+    border: none;
+    text-align: left;
+    padding-left: 20px;
+    font-size: 18px;
+}
+
+table.cmt tr:first-child td{
+    background-color: white;
+}
+table.cmt tr td{
+    text-align: left;
+    
+}
+table.cmt tr.coment td{
+    border: none;
+    text-align: left;
+}
+
+
+
+

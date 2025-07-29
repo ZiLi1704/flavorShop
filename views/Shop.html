@@ -1,0 +1,220 @@
+<div id="collection" style="margin-top: 35px;">
+    <div id="collection__produce">
+        <div class="produce__columnn-left">
+            <h3 style="padding-top: 10px;">
+                {{checkName}}
+            </h3>
+            <section class="produce__frame produce__bestSellers">
+                <h3 class="bestSellers__heading">
+                    BESTSELLERS
+                </h3>
+            </section>
+        </div>
+
+        <div class="produce__columnn-right">
+            <div class="produce__pagination">
+                <div class="pagination-desc">
+                    Showing {{ (currentPage-1)*itemsPerPage + 1 }} to {{ Math.min(currentPage*itemsPerPage, totalItems) }} of {{ totalItems }} ({{ totalPages }} Pages)
+                </div>
+            
+                <div class="pagination">
+                    <ul class="pagination-lists">
+                        <li class="pagination-item" ng-repeat="page in getPages()" >
+                            <a href="" ng-click="setCurrentPage(page)"><input type="button" value="{{ page }}"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="produce__list-items" style="min-height: 550px;"> 
+                <div class="produce__item" style="border: 1px solid black; " ng-repeat="product in Products.slice((currentPage-1)*itemsPerPage, currentPage*itemsPerPage)">
+                    <!-- Product details here -->
+                    <a href="" class="produce__item-img" data-bs-toggle="modal" data-bs-target="#ProductByID" ng-click="GetData($index)">
+                        <img src="./assets/images/product/{{product.main_image}}" alt="" style="width: 100%; height: 140px;">
+                    </a>             
+                    <h4 class="produce__item-name">{{ product.product_name }}</h4>
+                    <span class="produce__item-new">${{ product.product_price}}</span>
+                    <div>
+                        <button ng-click="addToCart($index)">Add to Cart</button>
+                    </div>
+                    <!-- Other product HTML -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ProductByID" tabindex="-1" aria-labelledby="ProductByID" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body modal_prd" style="height: 600px; overflow-y: scroll;">
+          <div class="container">
+            <div class="row" style="height: 300px;">
+              <div class="col-5" data-bs-ride="carousel">
+                <div id="carouselShowProductByID" class="carousel slide" data-bs-ride="carousel"
+                  style="height: 300px; width: 435px; border-radius: 10px; overflow: hidden;">
+                  <div class="carousel-inner" style="height: 300px; width: 435px;">
+                    <div class="carousel-item active">
+                      <img src="./assets/images/product/{{img1}}" style="width:435px; height:300px" alt="..." />
+                    </div>
+                    <div class="carousel-item">
+                      <img src="./assets/images/product/{{img2}}" style="width:435px; height:300px" alt="..." />
+                    </div>
+                    <div class="carousel-item">
+                      <img src="./assets/images/product/{{img3}}" style="width:435px; height:300px" alt="..." />
+                    </div>
+                    <div class="carousel-item">
+                      <img src="./assets/images/product/{{img4}}" style="width:435px; height:300px" alt="..." />
+                    </div>
+                  </div>
+                  <a class="carousel-control-prev" href="#carouselShowProductByID" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselShowProductByID" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </a>
+                </div>
+              </div>
+              <div class="col-7 " style="height: 300px; overflow: hidden;" >
+                <div class="row" style="height: 100px; width: 100%;">
+                  <div class="col" style="padding-top: 20px;">
+                    <h3>{{txtName}}</h3>
+                    <h3 style="color: gray;">Price: ${{txtRealPrice}}/{{txtUnit}}</h3>
+                  </div>
+                  <div class="col" style="padding-top: 20px;">
+                    <button style="width: 140px; margin-top: 5px; border-radius: 10px;" ng-click="addToCart(takeID)">ADD to Cart</button>
+                  </div>
+                </div>
+                <div class="row modal_prd" style="height: 600px; width: 100%; overflow-y: scroll; overflow-x: hidden;">
+                  <p style="word-wrap: break-word; font-size: 20px;">{{txtDesc}}</p>
+                </div>
+              </div>
+            </div>
+            <p style="font-weight: bold; font-size: 20px; margin-top: 10px;">Same Category</p>
+            <div class="row" style="height: 220px;">
+              <div class="col" ng-repeat="prd in ProductsSlide">
+                <a href="" style="color: #68ac82; text-decoration: none;"> 
+                  <div style="height: 300px;">
+                    <img src="./assets/images/product/{{prd.main_image}}" alt="Product 1" width="100%">
+                    <center>
+                      <h5>{{prd.product_name}}</h5>
+                      <p>{{prd.product_price}}</p>
+                    </center>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="row modal_prd" style="overflow-y: scroll;">
+              <h3>product reviews</h3>
+              <form action="/submit-comment" method="post">
+              <table class="cmt">
+                  <tr class="coment">
+                    <td colspan="2" style="font-size: 18px; font-weight:400;">Username: This is a comment</td>
+                  </tr>
+                  <tr class="coment">
+                    <td style="width: 50px;"></td>
+                    <td>Username Reb: This is a reply</td>
+                  </tr>
+                  <tr class="coment">
+                    <td style="width: 50px;"></td>
+                    <td>Username Reb: This is another reply</td>
+                  </tr>
+                  <tr class="coment">
+                    <td style="width: 50px;"></td>
+                    <td>
+                      <input type="text" name="name" placeholder="Name" style="width: 9%;">
+                      <input type="text" name="comment" placeholder="Comment" style="width: 80%;">
+                      <button type="submit">Submit</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <input type="text" name="name" placeholder="Name" style="width: 10%;">
+                      <input type="text" name="comment" placeholder="Comment" style="width: 80%;">
+                      <button type="submit">Submit</button>
+                    </td>
+                  </tr>
+              </table>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+    var collection = {
+    ShowQuickView : function () {
+        const bestSellersItem = document.querySelector(".bestSellers-item") ;
+        const produceItem = document.querySelector(".produce__item") ;
+        const produceItemView = document.querySelector(".produce__item-view") ;
+        const quickView = document.querySelector(".quick-view");
+        const quickViewCloseBtn = document.querySelector(".quick-view__close button");
+        const tableCell = document.querySelector(".table-cell");
+        const paginationItem = document.querySelector(".pagination-item");
+        const produceListItems = document.querySelector(".produce__list-items");
+        const tableList = document.querySelector(".table-list");
+        const collectionSale_a = document.querySelector(".collection__sale a");
+        const collectionSaleImg = document.querySelector(".collection__sale img");
+
+
+        if (paginationItem) {
+            paginationItem.classList.add("active");
+        }
+
+        if (tableCell) {
+            tableCell.style.backgroundPosition = "top -32.5px left";
+            tableCell.onclick = function (event) {
+                tableList.style.backgroundPosition = "top right";
+                tableCell.style.backgroundPosition = "top -32.5px left";
+            }
+        }
+
+        //  table-list-style
+        if (tableList) {
+            tableList.onclick = function (event) {
+                tableList.style.backgroundPosition = "top -32.5px right";
+                tableCell.style.backgroundPosition = "top left";
+            }
+        }
+
+
+        produceItemView.onclick = produceItem.onclick = bestSellersItem.onclick = function (e) {
+            e.preventDefault();
+            quickView.style.display = "flex";
+            bestSellersItem.addEventListener("keydown",function(event) {
+                if(event.keyCode === 27) {
+                quickView.style.display = "none";
+                }
+            })
+
+            produceItem.addEventListener("keydown",function(event) {
+                if(event.keyCode === 27) {
+                quickView.style.display = "none";
+                }
+            })
+
+            produceItemView.addEventListener("keydown",function(event) {
+                if(event.keyCode === 27) {
+                quickView.style.display = "none";
+                }
+            })
+
+            quickViewCloseBtn.onclick = function () {
+                quickView.style.display = "none";
+            }
+
+           
+        }
+    },
+
+    start : function () {
+        this.ShowQuickView();
+    }
+}
+
+collection.start();
+</script>

@@ -1,0 +1,183 @@
+<div class="container">
+  <section class="LoginArea">
+    <div class="imglogin">
+      <video autoplay loop muted style="width: 100%; padding-top: 30px;">
+        <source src="./assets/images/banner/_import_618a6adf02dab5.71210871_FPpreview.mp4" type="video/mp4" />
+     </video>
+    </div>
+    <div class="imgForm">
+      <div ng-show="frmLogin">
+        <form method="post" ng-submit="subLogin()">
+          <table style="margin-top: 25%">
+            <tr>
+              <td colspan="2" style="text-align: center"><h1>Login</h1></td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align: center; font-weight: bold; color: red;">
+                {{note}}
+              </td>
+            </tr>
+            <tr>
+              <td class="right">Email:</td>
+              <td class="left">
+                <input type="text" ng-model="user.Email" class="txt" />
+              </td>
+            </tr>
+            <tr>
+              <td class="right">Password:</td>
+              <td class="left">
+                <input type="password" ng-model="user.Password" class="txt" />
+              </td>
+            </tr>
+            <tr>
+              <td class="right" style="padding-right: 50px" colspan="2">
+                <input
+                  class="btn"
+                  type="submit"
+                  value="Login"
+                /><a href="" ng-click="goReset()">Forgot password ?</a>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="padding-left: 40px">
+                <div>
+                  <input type="checkbox" ng-model="cbRemember" />Remember me
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="padding-left: 40px">
+                <div>
+                  You don't have an account? <a href="" ng-click="goRegist()">register</a>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+      <div ng-show="frmRegist">
+        <form ng-submit="subregis()">
+          <table style="margin-top: 25%">
+            <tr>
+              <td colspan="2" style="text-align: center">
+                <h1>Registration</h1>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align: center; font-weight: bold">
+                {{note}}
+              </td>
+            </tr>
+            <tr>
+              <td class="right">Username:</td>
+              <td class="left">
+                <input type="text" ng-model="txtUser" class="txt" />
+              </td>
+            </tr>
+            <tr>
+              <td class="right">Email:</td>
+              <td class="left">
+                <input type="Email" ng-model="txtEmail" class="txt" />
+              </td>
+            </tr>
+            <tr>
+              <td class="right">Telephone:</td>
+              <td class="left">
+                <input type="text" ng-model="txtTelephone" class="txt" />
+              </td>
+            </tr>
+            <tr>
+              <td class="right">Password:</td>
+              <td class="left">
+                <input type="password" ng-model="txtPass" class="txt" />
+              </td>
+            </tr>
+            <tr>
+              <td class="right">Re-Password:</td>
+              <td class="left">
+                <input type="password" ng-model="txtRePass" class="txt" />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <input
+                  class="btn"
+                  style="width: 80%; margin-left: 40px"
+                  type="submit"
+                  value="Registration"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="padding-left: 40px">
+                <div>You have an account? <a href="" ng-click="goLogin()">Login</a></div>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+      <div ng-show="frmReset">
+        <form>
+          <table style="margin-top: 25%">
+            <tr>
+              <td colspan="2" style="text-align: center">
+                <h1>Reset Password</h1>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align: center; font-weight: bold">
+                {{note}}
+              </td>
+            </tr>
+            <tr>
+              <td class="right">Username:</td>
+              <td class="left">
+                <input type="text" ng-model="txtFName" class="txt" />
+              </td>
+            </tr>
+            <tr>
+              <td class="right">Email:</td>
+              <td class="left">
+                <input type="Email" ng-model="txtEmail" class="txt" />
+              </td>
+            </tr>
+            <tr>
+              <td class="right">Telephone:</td>
+              <td class="left">
+                <input type="text" ng-model="txtTelephone" class="txt" />
+              </td>
+            </tr>
+            <tr>
+              <td class="right">New Password:</td>
+              <td class="left">
+                <input type="password" ng-model="txtPass" class="txt" />
+              </td>
+            </tr>
+            <tr>
+              <td class="right">Re-Password:</td>
+              <td class="left">
+                <input type="password" ng-model="txtRePass" class="txt" />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <input
+                  class="btn"
+                  style="width: 80%; margin-left: 40px"
+                  type="button"
+                  value="Reset Password"
+                  ng-click=""
+                />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="padding-left: 40px">
+                <div>You have an account? <a href="" ng-click="goLogin()">Login</a></div>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,336 @@
+<div class="header">
+  <h2>List Product</h2>
+</div>
+<div class="body">
+  <div class="container">
+    <div class="row" style="margin-bottom: 20px">
+      <div class="col-10">
+        <div class="input-group">
+          <input type="search" class="form-control rounded" ng-model="searchText" placeholder="Search..."
+            aria-label="Search" aria-describedby="search-addon" />
+        </div>
+      </div>
+      <div class="col-2" style="text-align: right;">
+        <a href="" data-bs-toggle="modal" data-bs-target="#addProduct" ng-click="clear()">
+          <input type="button" class="btn-Usertb" value="Add" />
+        </a>
+        <a href="" data-bs-toggle="modal" data-bs-target="#InputProduct" ng-click="clear()">
+          <input type="button" class="btn-Usertb" value="Input" />
+        </a>
+      </div>
+    </div>
+    <div class="datatb Usertb">
+      <table>
+        <tr>
+          <td style="width: 50px;">STT</td>
+          <td>Category</td>
+          <td>Name</td>
+          <td>Brand</td>
+          <td>Price</td>
+          <td>Quantity</td>
+          <td>unit</td>
+          <td>description</td>
+          <td>Main Image</td>
+          <td>Images</td>
+          <td>Status</td>
+          <td style="width: 100px;">Action</td>
+        </tr>
+        <tr ng-repeat="product in Products | filter: searchText" style="cursor: pointer;" data-bs-toggle="modal"
+          data-bs-target="#ProductByID" ng-click="GetProductByIndex($index)">
+          <td>{{$index + 1}}</td>
+          <td>{{product.category_name}}</td>
+          <td>{{product.product_name}}</td>
+          <td>{{product.brand}}</td>
+          <td>{{product.product_price}}</td>
+          <td>{{product.quantity}}</td>
+          <td>{{product.unit_name}}</td>
+          <td>{{product.product_desc}}</td>
+          <td><img src="./assets/images/product/{{product.main_image}}" alt="" width="50px"></td>
+          <td style="text-align: center;">
+            <img ng-src="./assets/images/product/{{product.image1}}" alt="" width="50px" height="100%">
+            <img ng-src="./assets/images/product/{{product.image2}}" alt="" width="50px" height="100%">
+            <img ng-src="./assets/images/product/{{product.image3}}" alt="" width="50px" height="100%">
+            <img ng-src="./assets/images/product/{{product.image4}}" alt="" width="50px" height="100%">
+          </td>
+          <td>{{product.status}}</td>
+          <td>
+            <a href="" data-bs-toggle="modal" data-bs-target="#DelByID" ng-click="GetProductByIndex($index)">
+              <input type="button" value="Delete" class="btn-Usertb">
+            </a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- all modal form for user start-->
+  <!-- Modal -->
+  <div class="modal fade" id="ProductByID" tabindex="-1" aria-labelledby="ProductByID" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body modal_prd" style="height: 600px; overflow-y: scroll;">
+          <div class="container">
+            <div class="row" style="height: 300px;">
+              <div class="col-5" data-bs-ride="carousel">
+                <div id="carouselShowProductByID" class="carousel slide" data-bs-ride="carousel"
+                  style="height: 300px; width: 435px; border-radius: 10px; overflow: hidden;">
+                  <div class="carousel-inner" style="height: 300px; width: 435px;">
+                    <div class="carousel-item active">
+                      <img src="./assets/images/product/{{img1}}" style="width:435px; height:300px" alt="..." />
+                    </div>
+                    <div class="carousel-item">
+                      <img src="./assets/images/product/{{img2}}" style="width:435px; height:300px" alt="..." />
+                    </div>
+                    <div class="carousel-item">
+                      <img src="./assets/images/product/{{img3}}" style="width:435px; height:300px" alt="..." />
+                    </div>
+                    <div class="carousel-item">
+                      <img src="./assets/images/product/{{img4}}" style="width:435px; height:300px" alt="..." />
+                    </div>
+                  </div>
+                  <a class="carousel-control-prev" href="#carouselShowProductByID" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselShowProductByID" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </a>
+                </div>
+              </div>
+              <div class="col-7 " style="height: 300px; overflow: hidden;" >
+                <div class="row" style="height: 100px; width: 100%;">
+                  <div class="col" style="padding-top: 20px;">
+                    <h3>{{txtName}}</h3>
+                  </div>
+                  <div class="col" style="padding-top: 20px;">
+                    <h3 style="color: gray;">Price: {{txtRealPrice}}/{{txtUnit}}</h3>
+                  </div>
+                  <div class="col-5" style="text-align: right;">
+                    <button style="width: 140px; margin-top: 5px; border-radius: 10px;">ADD WishList</button>
+                    <button style="width: 140px; margin-top: 5px; border-radius: 10px;">ADD to Cart</button>
+                  </div>
+                </div>
+                <div class="row modal_prd" style="height: 600px; width: 100%; overflow-y: scroll; overflow-x: hidden;">
+                  <p style="word-wrap: break-word; font-size: 20px;">{{txtDesc}}</p>
+                </div>
+              </div>
+            </div>
+            <p style="font-weight: bold; font-size: 20px; margin-top: 10px;">Same Category</p>
+            <div class="row" style="height: 220px;">
+              <div class="col">
+                <a href="" style="color: #68ac82; text-decoration: none;"> 
+                  <div style="height: 300px;">
+                    <img src="./assets/images/product/banner1.jpg" alt="Product 1" width="100%">
+                    <center>
+                      <h5>Product 1</h5>
+                      <p>Price:$300</p>
+                    </center>
+                  </div>
+                </a>
+              </div>
+              <div class="col" style="height: 100px;">
+                <a href="" style="color: #68ac82; text-decoration: none;">
+                  <div style="height: 300px;">
+                    <img src="./assets/images/product/banner1.jpg" alt="Product 2" width="100%">
+                    <center>
+                      <h5>Product 2</h5>
+                      <p>Price: $300</p>
+                    </center>
+                  </div>
+                </a>
+              </div>
+              <div class="col">
+                <a href="" style="color: #68ac82; text-decoration: none;">
+                  <div style="height: 300px;">
+                    <img src="./assets/images/product/banner1.jpg" alt="Product 3" width="100%">
+                    <center>
+                      <h5>Product 3</h5>
+                      <p>Price: $300</p>
+                    </center>
+                  </div>
+                </a>
+              </div>
+              <div class="col">
+                <a href="" style="color: #68ac82; text-decoration: none;">
+                  <div style="height: 300px;">
+                    <img src="./assets/images/product/banner1.jpg" alt="Product 4" width="100%">
+                    <center>
+                      <h5>Product 4</h5>
+                      <p>Price: $300</p>
+                    </center>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="row modal_prd" style="overflow-y: scroll;">
+              <h3>product reviews</h3>
+              <form action="/submit-comment" method="post">
+              <table class="cmt">
+                  <tr class="coment">
+                    <td colspan="2" style="font-size: 18px; font-weight:400;">Username: This is a comment</td>
+                  </tr>
+                  <tr class="coment">
+                    <td style="width: 50px;"></td>
+                    <td>Username Reb: This is a reply</td>
+                  </tr>
+                  <tr class="coment">
+                    <td style="width: 50px;"></td>
+                    <td>Username Reb: This is another reply</td>
+                  </tr>
+                  <tr class="coment">
+                    <td style="width: 50px;"></td>
+                    <td>
+                      <input type="text" name="name" placeholder="Name" style="width: 9%;">
+                      <input type="text" name="comment" placeholder="Comment" style="width: 80%;">
+                      <button type="submit">Submit</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <input type="text" name="name" placeholder="Name" style="width: 10%;">
+                      <input type="text" name="comment" placeholder="Comment" style="width: 80%;">
+                      <button type="submit">Submit</button>
+                    </td>
+                  </tr>
+              </table>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="addProduct" tabindex="-1" aria-labelledby="addProduct" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Product</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ng-click="clear()"></button>
+        </div>
+        <div class="modal-body" style="height: 590px">
+          <form ng-submit="Addproduct()">
+            <div class="mb-3" style="background-color: #68ac82; height: 50px; padding-top: 10px;">
+              <h4 style="text-align: left; padding-left: 30px;" ng-show="notetext">Complete forms and add users</h4>
+              <h4 style="text-align: left; padding-left: 30px;" ng-show="noteres">{{note}}</h4>
+            </div>
+            <div style="height: 450px; overflow-y: scroll;">
+              <div class="mb-3">
+                <label class="form-label">Category</label>
+                <select ng-model="PrdCate" class="form-control">
+                  <option value="">Select a role</option>
+                  <option ng-repeat="cate in cates" value="{{cate.ID}}">{{cate.category_name}}</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Product Name</label>
+                <input type="text" class="form-control" ng-model="PrdName">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Brand</label>
+                <input type="text" class="form-control" ng-model="PrdBrand">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Price</label>
+                <input type="text" class="form-control" ng-model="PrdPrice">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Unit</label>
+                <select ng-model="PrdUnit" class="form-control">
+                  <option value="">Select a role</option>
+                  <option ng-repeat="unit in units" value="{{unit.ID}}">{{unit.unit_name}}</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" ng-model="PrdDesc"></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Main Image </label>
+                <input type="file" ng-model="Prdimage" accept="image/*"
+                  onchange="angular.element(this).scope().uploadedFile(this)" 
+                  style="width: 100%;"/>
+              </div>
+              <div class="mb-3">
+                <div class="col"><img id="output" style="width:200px; height:150px" class="img-responsive" /></div>               
+              </div>
+              <div class="mb-3">
+                <div class="row container-fluid">
+                  <label class="form-label">More Images</label>
+                  <div class="col-lg-3">
+                    <input type="file" accept="image/*" ng-model="Prdimage1"
+                      onchange="angular.element(this).scope().uploadedFile1(this)" 
+                      style="width: 100%;"/>
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="file" accept="image/*" ng-model="Prdimage2"
+                      onchange="angular.element(this).scope().uploadedFile2(this)" 
+                      style="width: 100%;" />
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="file" accept="image/*" ng-model="Prdimage3"
+                      onchange="angular.element(this).scope().uploadedFile3(this)" 
+                      style="width: 100%;" />
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="file" accept="image/*" ng-model="Prdimage4"
+                      onchange="angular.element(this).scope().uploadedFile4(this)" 
+                      style="width: 100%;"/>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <div class="row container-fluid">
+                  <div class="col-lg-3"><img id="output1" style="width:200px; height:150px" class="img-responsive" /></div>
+                  <div class="col-lg-3"><img id="output2" style="width:200px; height:150px" class="img-responsive" /></div>
+                  <div class="col-lg-3"><img id="output3" style="width:200px; height:150px" class="img-responsive" /></div>
+                  <div class="col-lg-3"><img id="output4" style="width:200px; height:150px" class="img-responsive" /></div>
+                </div> 
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Status</label>
+                <select ng-model="PrdStt" class="form-control">
+                  <option value="">Select a role</option>
+                  <option value="New">FEATURES PRODUCT</option>
+                  <option value="Best">BEST SELLER</option>
+                  <option value="Nor">Normal</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn-Usertb" style="color: black;">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="DelByID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalLabel">Delete Product</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            ng-click="clear()"></button>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="tbUser">
+            <tr>
+              <td colspan="2" style="text-align: left; padding-left: 30px;" ng-show="notetext">You definitely want to
+                delete this product ?</td>
+              <td colspan="2" style="text-align: left; padding-left: 30px;" ng-show="noteres">{{note}}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <a href=""  ng-click="Delproduct()">
+            <input type="submit" value="Delete" class="btn-Usertb">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- all modal form for user end -->
+</div>
